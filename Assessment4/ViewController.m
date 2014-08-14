@@ -30,6 +30,8 @@
     NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Person"];
     request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
 
+    self.fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:request managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+
     self.fetchedResultsController.delegate = self;
     [self.fetchedResultsController performFetch:nil];
 }
