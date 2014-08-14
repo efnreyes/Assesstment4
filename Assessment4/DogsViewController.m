@@ -8,6 +8,7 @@
 
 #import "DogsViewController.h"
 #import "AddDogViewController.h"
+#import "Dog.h"
 
 @interface DogsViewController () <UITableViewDelegate, UITableViewDataSource>
 
@@ -36,8 +37,8 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: mmDogCellIdentifier];
-    Dog *dog = [self.dogs objectAtIndex:0];
-//    cell.textLabel.text = dog.name;
+    Dog *dog = [self.dogs objectAtIndex:indexPath.row];
+    cell.textLabel.text = dog.name;
     return cell;
 }
 
