@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "Person.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
 
@@ -25,20 +26,26 @@
 {
     [super viewDidLoad];
     self.title = @"Dog Owners";
+
+    NSFetchRequest *request = [[NSFetchRequest alloc] initWithEntityName:@"Person"];
+    request.sortDescriptors = [NSArray arrayWithObject:[NSSortDescriptor sortDescriptorWithKey:@"name" ascending:YES]];
+
+    self.fetchedResultsController.delegate = self;
+    [self.fetchedResultsController performFetch:nil];
 }
 
 #pragma mark - UITableViewDataSource Methods
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    //TODO: UPDATE THIS ACCORDINGLY
-    return 1;
+    return [[self.fetchedResultsController.sections objectAtIndex:section] numberOfObjects];
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    Person *person = [self.fetchedResultsController objectAtIndexPath:indexPath];
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier: mmCellIdentifier];
-    //TODO: UPDATE THIS ACCORDINGLY
+    cell.textLabel.text = person.name;
     return cell;
 }
 
@@ -66,7 +73,10 @@
 
         if (buttonIndex != alertView.cancelButtonIndex)
         {
-            //TODO: ADD YOUR CODE HERE FOR WHEN USER ADDS NEW PERSON
+            NSLog(@"%@", [self.addAlert textFieldAtIndex:0].text);
+            Person *p = [NSEntityDescription insertNewObjectForEntityForName:@"Person" inManagedObjectContext:self.managedObjectContext];
+            p.name = [self.addAlert textFieldAtIndex:0].text;
+            [self.managedObjectContext save:nil];
         }
     }
     else if (alertView == self.colorAlert)
