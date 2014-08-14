@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Person.h"
 
 @interface AddDogViewController : UIViewController
-
+@property (strong, nonatomic) Person *person;
 @end

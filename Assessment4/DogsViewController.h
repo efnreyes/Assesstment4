@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Person.h"
 
 @interface DogsViewController : UIViewController
 
 #define mmAddSegue @"AddDogSegue"
 #define mmDogCellIdentifier @"dogCell"
+
+@property Person *person;
 
 @end

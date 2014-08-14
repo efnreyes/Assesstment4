@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "DogsViewController.h"
 #import "Person.h"
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource, UIAlertViewDelegate>
@@ -135,6 +136,11 @@
                                               cancelButtonTitle:@"Found solution"
                                               otherButtonTitles:@"Still Stuck", nil];
     [self.stuckAlert show];
+}
+
+-(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    DogsViewController *dvc = segue.destinationViewController;
+    dvc.person = [self.fetchedResultsController objectAtIndexPath:self.myTableView.indexPathForSelectedRow];
 }
 
 @end
